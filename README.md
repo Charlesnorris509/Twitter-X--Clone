@@ -1,6 +1,6 @@
 # Twitter Clone
 
-## Define Project Scope and Features
+## Project Scope and Features
 
 ### Key Features to Include:
 - **User Authentication**: Signup, login, password recovery.
@@ -94,7 +94,7 @@
 
 ---
 
-## Database Schema Example
+## Database Schema 
 
 ### Users Table:
 - `id`, `username`, `email`, `password_hash`, `profile_picture`, `bio`, `created_at`.
