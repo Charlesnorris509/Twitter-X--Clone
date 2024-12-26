@@ -1,0 +1,17 @@
+backend/
+├── config/
+│   └── db.js        # Database connection
+├── controllers/
+│   ├── auth.js      # Authentication logic
+│   └── post.js      # Post creation logic
+├── models/
+│   ├── User.js      # User schema
+│   └── Post.js      # Post schema
+├── routes/
+│   ├── auth.js      # Auth routes
+│   └── post.js      # Post routes
+├── middleware/
+│   └── auth.js      # Authentication middleware
+├── .env             # Environment variables
+├── server.js        # Entry point
+├── package.json
