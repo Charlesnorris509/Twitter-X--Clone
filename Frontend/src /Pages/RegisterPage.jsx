@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './AuthPages.css';
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
@@ -55,41 +56,30 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="register-page">
-      <h1>Register</h1>
-      <form onSubmit={handleSubmit} className="register-form">
-        <input
-          type="text"
-          placeholder="Username"
-          name="username"
-          value={formData.username}
-          onChange={handleInputChange}
-          required
-        />
+      <div className="auth-page">
+      <form onSubmit={handleSubmit} className="auth-form">
+        <h1>Login</h1>
         <input
           type="email"
           placeholder="Email"
-          name="email"
-          value={formData.email}
-          onChange={handleInputChange}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
         <input
           type="password"
           placeholder="Password"
-          name="password"
-          value={formData.password}
-          onChange={handleInputChange}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           required
         />
         {error && <p className="error-message">{error}</p>}
-        {success && <p className="success-message">Registration successful! Please log in.</p>}
-        <button type="submit" className="register-button" disabled={loading}>
-          {loading ? 'Signing up...' : 'Sign Up'}
+        <button type="submit" className="auth-button" disabled={loading}>
+          {loading ? 'Logging in...' : 'Log In'}
         </button>
       </form>
       <p>
-        Already have an account? <a href="/login">Log In</a>
+        Don't have an account? <a href="/register">Sign Up</a>
       </p>
     </div>
   );
