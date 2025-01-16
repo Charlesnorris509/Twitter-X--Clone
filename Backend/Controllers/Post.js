@@ -3,14 +3,13 @@ const User = require('../models/User');
 
 // Create a new post
 exports.createPost = async (req, res) => {
-    const { content, mediaUrl, hashtags } = req.body;
+    const { content, mediaUrl } = req.body;
 
     try {
         const newPost = new Post({
             userId: req.user.userId,
             content,
             mediaUrl,
-            hashtags,
         });
 
         await newPost.save();
