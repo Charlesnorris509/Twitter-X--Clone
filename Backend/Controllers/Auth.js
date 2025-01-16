@@ -100,3 +100,52 @@ exports.updateProfile = async (req, res) => {
         res.status(500).json({ message: 'Server error.', error });
     }
 };
+
+// Password recovery
+exports.recoverPassword = async (req, res) => {
+    const { email } = req.body;
+
+    try {
+        // Find the user
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found.' });
+        }
+
+        // Generate a password reset token
+        const resetToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+        // TODO: Send reset token to user's email
+
+        res.status(200).json({ message: 'Password recovery email sent.', resetToken });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error.', error });
+    }
+};
+
+// Reset password
+exports.resetPassword = async (req, res) => {
+    const { token, newPassword } = req.body;
+
+    try {
+        // Verify the reset token
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+        // Find the user
+        const user = await User.findById(decoded.userId);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found.' });
+        }
+
+        // Hash the new password
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+        // Update the user's password
+        user.password = hashedPassword;
+        await user.save();
+
+        res.status(200).json({ message: 'Password reset successful.' });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error.', error });
+    }
+};
