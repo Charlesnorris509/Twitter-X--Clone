@@ -6,9 +6,8 @@ const {
   oauthLogin,
   getProfile,
   updateProfile,
-  changePassword,
-  logout,
-  deleteAccount,
+  recoverPassword,
+  resetPassword
 } = require('../controllers/auth');
 const authMiddleware = require('../middleware/auth');
 
@@ -27,13 +26,10 @@ router.get('/profile', authMiddleware, getProfile);
 // Update user profile (requires authentication)
 router.put('/profile', authMiddleware, updateProfile);
 
-// Change user password (requires authentication)
-router.put('/change-password', authMiddleware, changePassword);
+// Password recovery
+router.post('/recover-password', recoverPassword);
 
-// Logout user (requires authentication)
-router.post('/logout', authMiddleware, logout);
-
-// Delete user account (requires authentication)
-router.delete('/delete-account', authMiddleware, deleteAccount);
+// Reset password
+router.post('/reset-password', resetPassword);
 
 module.exports = router;
