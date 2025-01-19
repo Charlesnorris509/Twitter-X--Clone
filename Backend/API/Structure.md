@@ -72,5 +72,31 @@ This document outlines the backend functions required to support key features of
   - **Feed Algorithm**: Develop algorithms to select and order posts based on relevance.
   - **Caching**: Use caching strategies to improve feed loading times.
   - **Adherence to Privacy**: Ensure users see only content they're permitted to view.
+ 
+    
+### Posting Content
+POST /api/posts: Create a new post with text, images, or video.
+GET /api/posts/:id: Retrieve a specific post by ID.
+GET /api/posts: Retrieve all posts for the current user and their connections.
+### Likes & Comments
+POST /api/posts/:id/like: Like or unlike a post.
+POST /api/posts/:id/comment: Add a comment to a post.
+GET /api/posts/:id/comments: Retrieve comments for a specific post.
+### Friend/Follow System
+POST /api/users/:id/follow: Follow a user.
+DELETE /api/users/:id/unfollow: Unfollow a user.
+GET /api/users/:id/followers: Retrieve a list of followers for a user.
+GET /api/users/:id/following: Retrieve a list of users followed by a user.
+### Notifications
+GET /api/notifications: Retrieve notifications for the current user.
+PUT /api/notifications/:id/read: Mark a notification as read.
+### Search
+GET /api/search/users: Search for users.
+GET /api/search/posts: Search for posts.
+### Chat/Direct Messaging
+POST /api/messages: Send a direct message.
+GET /api/messages: Retrieve messages for the current user.
+### News Feed
+GET /api/feed: Retrieve the personalized news feed for the current user.
 
 
