@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const fs = require('fs');
+const https = require('https');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const connectDB = require('./config/db');
@@ -10,6 +12,14 @@ const postRoutes = require('./routes/post');
 const userRoutes = require('./routes/user');
 const notificationRoutes = require('./routes/notification');
 const { notFoundHandler, errorHandler } = require('./middleware/errorHandlers');
+
+
+const privateKey = fs.readFileSync('/path/to/your/private.key', 'utf8');
+const certificate = fs.readFileSync('/path/to/your/certificate.crt', 'utf8');
+const ca = fs.readFileSync('/path/to/your/ca_bundle.crt', 'utf8');
+
+const credentials = { key: privateKey, cert: certificate, ca: ca };
+
 
 // Load environment variables
 dotenv.config();
