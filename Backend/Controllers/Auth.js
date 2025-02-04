@@ -149,3 +149,22 @@ exports.resetPassword = async (req, res) => {
         res.status(500).json({ message: 'Server error.', error });
     }
 };
+
+const speakeasy = require('speakeasy');
+
+exports.post('/enable2fa', async (req, res) => {
+    const { userId } = req.body;
+    const secret = speakeasy.generateSecret({ length: 20 });
+    await User.updateOne({ id: userId }, { two_factor_secret: secret.base32 });
+    res.json(secret);
+});
+
+exports.post('/verify2fa', async (req, res) => {
+    const { userId, token } = req.body;
+    const user = await User.findOne({ id: userId });
+    if (speakeasy.totp.verify({ secret: user.two_factor_secret, encoding: 'base32', token })) {
+        res.send('2FA verified');
+    } else {
+        res.status(401).send('Invalid 2FA code');
+    }
+});
