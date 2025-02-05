@@ -16,3 +16,10 @@ app.get('/search', async (req, res) => {
     });
     res.json(results.hits.hits);
 });
+
+app.get('/trending', async (req, res) => {
+    const posts = await Post.find()
+        .sort({ likes: -1, comments: -1 })
+        .limit(10);
+    res.json(posts);
+});
