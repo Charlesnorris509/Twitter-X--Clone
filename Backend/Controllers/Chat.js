@@ -23,9 +23,11 @@ io.on('connection', (socket) => {
     io.emit('stopTyping', userId);
     });
 
-    socket.on('updateLastSeen', (userId) => {
-    io.emit('lastSeen', UserId);
+  socket.on('updateLastSeen', (userId, timestamp) => {
+    User.updateOne({ id: userId }, { last_seen: timestamp }, (err) => {
+        if (err) console.error(err);
     });
+});
 });
 
       
